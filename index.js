@@ -1,16 +1,5 @@
 import { Component, createElement } from "preact";
 
-export function Timeout({ timeout, onTimeout, children }) {
-  if (!this.state.started) {
-    const handle = setTimeout(onTimeout, timeout);
-    this.componentWillUnmount = () => {
-      clearTimeout(handle);
-    };
-    this.setState({ started: true });
-  }
-  return children;
-}
-
 export const flowponent = flow => {
   return function(props) {
     if (!this.state.key) {
