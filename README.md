@@ -25,7 +25,7 @@ const App = flowponent(function*({ step }) {
 render(<App />, document.getElementById("root"));
 ```
 
-For a more involved one see [here's a Codesandbox](https://codesandbox.io/s/flowponent-in-action-88vb9) demonstrating composition, timeouts and such:
+For a more involved one see [here's a Codesandbox](https://codesandbox.io/s/flowponent-in-action-88vb9) demonstrating composition, additional props, timeouts and such:
 
 [![A Codesandbox sandbox demonstrating flowponent](https://user-images.githubusercontent.com/19776768/70817209-c648f400-1dd9-11ea-9df0-3f87f73a7d1d.png)](https://codesandbox.io/s/flowponent-in-action-88vb9)
 
