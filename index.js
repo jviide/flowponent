@@ -1,8 +1,8 @@
 import { Component, createElement } from "preact";
 
-export const flowponent = flow => {
-  return function(props, state) {
-    if (!state.trigger) {
+export default flow => {
+  return function(props) {
+    if (!this.state.trigger) {
       let iter = flow(props);
 
       const step = sentValue => {
@@ -10,10 +10,7 @@ export const flowponent = flow => {
           new Promise(trigger => {
             const next = iter.next(sentValue);
             if (!next.done) {
-              this.setState({
-                view: next.value(trigger),
-                trigger: trigger
-              });
+              this.setState({ trigger, view: next.value(trigger) });
             } else if (props.onReturn) {
               props.onReturn(next.value);
             }
@@ -30,6 +27,10 @@ export const flowponent = flow => {
 
       step();
     }
-    return createElement(Component, { key: state.trigger }, state.view);
+    return createElement(
+      Component,
+      { key: this.state.trigger },
+      this.state.view
+    );
   };
 };
