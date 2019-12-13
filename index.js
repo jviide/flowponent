@@ -12,40 +12,39 @@ export function Timeout({ timeout, onTimeout, children }) {
 }
 
 export const flowponent = flow => {
-  return function() {
+  return function(props) {
     if (!this.state.key) {
-      let trigger = null;
-      let key = 1;
+      let trigger;
 
-      const iter = flow(valueOrCallback => {
+      let iter = {};
+      Object.keys(props).forEach(prop => {
+        iter[prop] = props[prop];
+      });
+      iter.step = valueOrCallback => {
+        const current = trigger;
         return (...args) => {
-          trigger(
+          current(
             typeof valueOrCallback === "function"
               ? valueOrCallback(...args)
               : valueOrCallback
           );
         };
-      });
+      };
+      iter.onReturn = undefined;
+      iter = flow(iter);
 
       const step = sentValue => {
-        trigger = createTrigger();
+        new Promise(resolve => {
+          trigger = resolve;
+        }).then(step);
 
         const next = iter.next(sentValue);
         if (!next.done) {
-          this.setState({ view: next.value, key: key++ });
-        } else if (this.props.onReturn) {
-          this.props.onReturn(next.value);
+          this.setState({ view: next.value, key: trigger });
+        } else if (props.onReturn) {
+          props.onReturn(next.value);
         }
       };
-
-      const createTrigger = () => {
-        let resolve;
-        new Promise(resolve_ => {
-          resolve = resolve_;
-        }).then(step);
-        return resolve;
-      };
-
       step();
     }
 
