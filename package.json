@@ -1,7 +1,7 @@
 {
   "name": "flowponent",
   "version": "0.0.1",
-  "source": "src/foo.js",
+  "source": "index.js",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "unpkg": "dist/index.umd.js",
