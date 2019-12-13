@@ -2,7 +2,7 @@
 
 A small library for [Preact 10.x](https://github.com/preactjs/preact) for defining workflow-like evolving views via generators.
 
-Here's the canonical counter example:
+Here's the canonical counter example (also available [at Codesandbox](https://codesandbox.io/s/flowponent-in-action-ebfq2)):
 
 ```js
 import { render } from "preact";
