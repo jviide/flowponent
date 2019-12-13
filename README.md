@@ -1,5 +1,9 @@
 # flowponent
 
+A small library for [Preact 10.x](https://github.com/preactjs/preact) for defining workflow-like evolving views via generators.
+
+Here's the canonical counter example:
+
 ```js
 import { render } from "preact";
 import { flowponent } from "flowponent";
@@ -19,6 +23,14 @@ const App = flowponent(function*(step) {
 });
 
 render(<App />, document.getElementById("root"));
+```
+
+For a more involved one see [this sandbox](https://codesandbox.io/s/flowponent-in-action-88vb9) demonstrating composition, timeouts and such.
+
+## Installation
+
+```sh
+$ npm install --save flowponent
 ```
 
 ## See Also
