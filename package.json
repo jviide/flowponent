@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "unpkg": "dist/index.umd.js",
+  "repository": "jviide/flowponent",
   "author": "Joachim Viide <jviide@iki.fi>",
   "license": "MIT",
   "devDependencies": {
