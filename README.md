@@ -8,7 +8,7 @@ Here's the canonical counter example (also available [at Codesandbox](https://co
 import { render } from "preact";
 import { flowponent } from "flowponent";
 
-const App = flowponent(function*(step) {
+const App = flowponent(function*({ step }) {
   let count = 0;
 
   for (;;) {
