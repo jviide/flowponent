@@ -1,6 +1,6 @@
 {
   "name": "flowponent",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "source": "index.js",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
