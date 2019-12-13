@@ -1,4 +1,4 @@
-# flowponent
+# flowponent [![npm](https://img.shields.io/npm/v/flowponent.svg)](https://www.npmjs.com/package/flowponent)
 
 A small library for [Preact 10.x](https://github.com/preactjs/preact) for defining workflow-like evolving views via generators.
 
