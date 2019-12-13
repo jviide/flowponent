@@ -29,7 +29,6 @@ For a more involved one see [here's a Codesandbox](https://codesandbox.io/s/flow
 
 [![A Codesandbox sandbox demonstrating flowponent](https://user-images.githubusercontent.com/19776768/70807854-110d4080-1dc7-11ea-8c5a-ea8e40482595.png)](https://codesandbox.io/s/flowponent-in-action-88vb9)
 
-
 ## Installation
 
 ```sh
