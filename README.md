@@ -6,7 +6,7 @@ Here's the canonical counter example (also available [at Codesandbox](https://co
 
 ```js
 import { render } from "preact";
-import { flowponent } from "flowponent";
+import flowponent from "flowponent";
 
 const App = flowponent(function*() {
   let count = 0;
@@ -15,8 +15,8 @@ const App = flowponent(function*() {
     count += yield step => (
       <div>
         <div>current value: {count}</div>
-        <button onClick={step(1)}>+1</button>
-        <button onClick={step(-1)}>-1</button>
+        <button onClick={() => step(1)}>+1</button>
+        <button onClick={() => step(-1)}>-1</button>
       </div>
     );
   }
@@ -25,7 +25,7 @@ const App = flowponent(function*() {
 render(<App />, document.getElementById("root"));
 ```
 
-For a more involved one see [here's a Codesandbox](https://codesandbox.io/s/flowponent-in-action-88vb9) demonstrating composition, additional props, timeouts and such:
+For a more involved one see [here's a Codesandbox](https://codesandbox.io/s/flowponent-in-action-88vb9) demonstrating composition, additional props & cleanups upon unmount:
 
 [![A Codesandbox sandbox demonstrating flowponent](https://user-images.githubusercontent.com/19776768/70817209-c648f400-1dd9-11ea-9df0-3f87f73a7d1d.png)](https://codesandbox.io/s/flowponent-in-action-88vb9)
 
