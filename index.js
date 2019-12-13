@@ -1,42 +1,26 @@
 import { Component, createElement } from "preact";
 
 export const flowponent = flow => {
-  return function(props) {
-    if (!this.state.key) {
-      let trigger;
-
-      let iter = {};
-      Object.keys(props).forEach(prop => {
-        iter[prop] = props[prop];
-      });
-      iter.step = valueOrCallback => {
-        const current = trigger;
-        return (...args) => {
-          current(
-            typeof valueOrCallback === "function"
-              ? valueOrCallback(...args)
-              : valueOrCallback
-          );
-        };
-      };
-      iter.onReturn = undefined;
-      iter = flow(iter);
+  return function(props, state) {
+    if (!state.trigger) {
+      const iter = flow(props);
 
       const step = sentValue => {
-        new Promise(resolve => {
-          trigger = resolve;
+        new Promise(trigger => {
+          const next = iter.next(sentValue);
+          if (!next.done) {
+            this.setState({
+              view: next.value(trigger),
+              trigger: trigger
+            });
+          } else if (props.onReturn) {
+            props.onReturn(next.value);
+          }
         }).then(step);
-
-        const next = iter.next(sentValue);
-        if (!next.done) {
-          this.setState({ view: next.value, key: trigger });
-        } else if (props.onReturn) {
-          props.onReturn(next.value);
-        }
       };
+
       step();
     }
-
-    return createElement(Component, { key: this.state.key }, this.state.view);
+    return createElement(Component, { key: state.trigger }, state.view);
   };
 };
