@@ -2,19 +2,33 @@ import { Component, createElement } from "preact";
 
 export default flow => {
   return function(props) {
-    if (!this.state.trigger) {
+    const state = this.state;
+
+    if (!state.key) {
+      let key = 1;
       let iter = flow(props);
 
-      const step = sentValue => {
+      const step = (value, rejected) => {
         if (iter) {
-          new Promise(trigger => {
-            const next = iter.next(sentValue);
-            if (!next.done) {
-              this.setState({ trigger, view: next.value(trigger) });
-            } else if (props.onReturn) {
-              props.onReturn(next.value);
+          new Promise((resolve, reject) => {
+            try {
+              const next = rejected ? iter.throw(value) : iter.next(value);
+              if (!next.done) {
+                this.setState({
+                  key: key++,
+                  value: next.value(resolve, reject)
+                });
+              } else if (props.onReturn) {
+                props.onReturn(next.value);
+              }
+            } catch (err) {
+              if (props.onThrow) {
+                props.onThrow(err);
+              } else {
+                this.setState({ key: -1, value: err });
+              }
             }
-          }).then(step);
+          }).then(step, err => step(err, true));
         }
       };
 
@@ -27,10 +41,10 @@ export default flow => {
 
       step();
     }
-    return createElement(
-      Component,
-      { key: this.state.trigger },
-      this.state.view
-    );
+
+    if (state.key < 0) {
+      throw state.value;
+    }
+    return createElement(Component, { key: state.key }, state.value);
   };
 };
