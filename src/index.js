@@ -36,7 +36,7 @@ export default flow => {
         }
       };
 
-      step();
+      Promise.resolve().then(step);
     }
 
     if (state.failed) {
