@@ -1,6 +1,7 @@
 {
   "files.exclude": {
     "dist/": true,
+    "react/": true,
     "node_modules/": true
   }
 }
