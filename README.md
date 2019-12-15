@@ -1,6 +1,6 @@
 # flowponent [![npm](https://img.shields.io/npm/v/flowponent.svg)](https://www.npmjs.com/package/flowponent)
 
-A small library for [Preact 10.x](https://github.com/preactjs/preact) for defining workflow-like evolving views via generators.
+A small library for [Preact 10.x](https://preactjs.com/) (and [React](https://reactjs.org/) - see the ["Usage with React"](#usage-with-preact)) for defining workflow-like evolving views via generators.
 
 Here's the canonical counter example (also available [at Codesandbox](https://codesandbox.io/s/flowponent-in-action-ebfq2)):
 
@@ -33,6 +33,32 @@ For a more involved one see [here's a Codesandbox](https://codesandbox.io/s/flow
 
 ```sh
 $ npm install --save flowponent
+```
+
+## Usage with React
+
+The use flowponent with React, import from `"flowponent/react"` instead of `"flowponent"`:
+
+```js
+import React from "react";
+import { render } from "react-dom";
+import flowponent from "flowponent/react";
+
+const App = flowponent(function*() {
+  let count = 0;
+
+  for (;;) {
+    count += yield step => (
+      <div>
+        <div>current value: {count}</div>
+        <button onClick={() => step(1)}>+1</button>
+        <button onClick={() => step(-1)}>-1</button>
+      </div>
+    );
+  }
+});
+
+render(<App />, document.getElementById("root"));
 ```
 
 ## See Also
