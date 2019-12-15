@@ -1,11 +1,8 @@
-import { Component, createElement } from "preact";
-
 export default flow => {
   return function(props) {
     const state = this.state;
 
-    if (!state.key) {
-      let key = 1;
+    if (!state.started) {
       let iter = flow(props);
 
       const step = (value, rejected) => {
@@ -15,7 +12,7 @@ export default flow => {
               const next = rejected ? iter.throw(value) : iter.next(value);
               if (!next.done) {
                 this.setState({
-                  key: key++,
+                  started: true,
                   value: next.value(resolve, reject)
                 });
               } else if (props.onReturn) {
@@ -25,7 +22,7 @@ export default flow => {
               if (props.onThrow) {
                 props.onThrow(err);
               } else {
-                this.setState({ key: -1, value: err });
+                this.setState({ failed: true, value: err });
               }
             }
           }).then(step, err => step(err, true));
@@ -42,9 +39,9 @@ export default flow => {
       step();
     }
 
-    if (state.key < 0) {
+    if (state.failed) {
       throw state.value;
     }
-    return createElement(Component, { key: state.key }, state.value);
+    return state.value;
   };
 };
