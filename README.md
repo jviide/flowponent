@@ -1,6 +1,6 @@
 # flowponent [![npm](https://img.shields.io/npm/v/flowponent.svg)](https://www.npmjs.com/package/flowponent)
 
-A small library for [Preact 10.x](https://preactjs.com/) (and [React](https://reactjs.org/) - see the ["Usage with React"](#usage-with-preact)) for defining workflow-like evolving views via generators.
+A small library for [Preact 10.x](https://preactjs.com/) (and [React](https://reactjs.org/) - see ["Usage with React"](#usage-with-react)) for defining workflow-like evolving views via generators.
 
 Here's the canonical counter example (also available [at Codesandbox](https://codesandbox.io/s/flowponent-in-action-ebfq2)):
 
