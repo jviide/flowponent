@@ -14,7 +14,7 @@
   "scripts": {
     "build": "npm run build:preact && npm run build:react",
     "build:preact": "rm -rf dist && microbundle",
-    "build:react": "rm -rf react && microbundle --external react --output react src/react.js",
+    "build:react": "rm -rf react && microbundle -i src/react.js -o react/index.js --external react",
     "prepublishOnly": "npm run build"
   }
 }
