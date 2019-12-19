@@ -6,27 +6,46 @@ export default flow => {
       let iter = flow(props);
 
       const step = (value, rejected) => {
-        if (iter) {
-          new Promise((resolve, reject) => {
-            try {
-              const next = rejected ? iter.throw(value) : iter.next(value);
-              if (!next.done) {
-                this.setState({
-                  started: true,
-                  value: next.value(resolve, reject)
-                });
-              } else if (props.onReturn) {
-                props.onReturn(next.value);
+        const promise = new Promise((resolve, reject) => {
+          let next;
+          new Promise(resolve => {
+            resolve((next = rejected ? iter.throw(value) : iter.next(value)));
+          })
+            .then(result => {
+              if (iter) {
+                if (!result.done) {
+                  let view;
+                  try {
+                    view = result.value(resolve, reject);
+                  } catch (err) {
+                    return step(err, true);
+                  }
+
+                  this.setState({
+                    started: true,
+                    value: view
+                  });
+
+                  if (typeof next.then === "function") {
+                    step(promise);
+                  } else {
+                    promise.then(step, err => step(err, true));
+                  }
+                } else if (props.onReturn) {
+                  props.onReturn(result.value);
+                }
               }
-            } catch (err) {
-              if (props.onThrow) {
-                props.onThrow(err);
-              } else {
-                this.setState({ failed: true, value: err });
+            })
+            .catch(err => {
+              if (iter) {
+                if (props.onThrow) {
+                  props.onThrow(err);
+                } else {
+                  this.setState({ failed: true, value: err });
+                }
               }
-            }
-          }).then(step, err => step(err, true));
-        }
+            });
+        });
       };
 
       this.componentWillUnmount = () => {
@@ -36,7 +55,7 @@ export default flow => {
         }
       };
 
-      Promise.resolve().then(step);
+      step();
     }
 
     if (state.failed) {

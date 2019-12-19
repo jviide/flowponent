@@ -1,5 +1,5 @@
 import { Component } from "react";
-import flowponent from "..";
+import flowponent from ".";
 
 export default flow => {
   return class extends Component {
