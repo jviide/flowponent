@@ -51,7 +51,7 @@ Otherwise it all works the same way as before. Here's a React example featuring 
 
 If an error is throw inside the yielded functions it can be caught in the flowponent.
 
-The function can also fail asynchronously by calling its second parameter (`reject`):
+The function can also fail after it's result has been rendered by calling its second parameter (`reject`):
 
 ```js
 const App = flowponent(function*() {
