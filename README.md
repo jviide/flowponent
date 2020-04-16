@@ -47,6 +47,25 @@ import flowponent from "flowponent/react";
 
 Otherwise it all works the same way as before. Here's a React example featuring a random selection of very good dogs: [Codesandbox](https://codesandbox.io/s/flowponentreact-in-action-8q16y).
 
+## Error Propagation
+
+If an error is throw inside the yielded functions it can be caught in the flowponent.
+
+The function can also fail asynchronously by calling its second parameter (`reject`):
+
+```js
+const App = flowponent(function*() {
+  try {
+    const data = yield (resolve, reject) => (
+      <Downloader onSuccess={resolve} onFailure={reject} />
+    );
+    yield () => <p>Download succeeded: {data}</p>
+  } catch (err) {
+    yield () => <p>Download failed: {err.message}</p>;
+  }
+});
+```
+
 ## Async Mode
 
 Async mode is activated by using async generators instead of regular ones. In fact, regular flowponents are actually just a special case of async ones! Here's the first example implemented with async flowponents:
