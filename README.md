@@ -35,7 +35,7 @@ For a more involved one see [here's a Codesandbox](https://codesandbox.io/s/flow
 $ npm install --save flowponent
 ```
 
-## Usage with React
+### A Note on React Support
 
 The use flowponent with React, import from `"flowponent/react"` instead of `"flowponent"`:
 
