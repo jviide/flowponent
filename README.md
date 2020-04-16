@@ -71,10 +71,7 @@ const App = flowponent(function*() {
 Async mode is activated by using async generators instead of regular ones. In fact, regular flowponents are actually just a special case of async ones! Here's the first example implemented with async flowponents:
 
 ```js
-import { render } from "preact";
-import flowponent from "flowponent";
-
-const App = flowponent(function*() {
+const App = flowponent(async function*() {
   let count = 0;
 
   for (;;) {
@@ -88,8 +85,6 @@ const App = flowponent(function*() {
     count += await promise;
   }
 });
-
-render(<App />, document.getElementById("root"));
 ```
 
 This allows doing things between the time that the view has been rendered and `resolve` has been called.
