@@ -12,11 +12,11 @@ const App = flowponent(function*() {
   let count = 0;
 
   for (;;) {
-    count += yield step => (
+    count += yield resolve => (
       <div>
         <div>current value: {count}</div>
-        <button onClick={() => step(1)}>+1</button>
-        <button onClick={() => step(-1)}>-1</button>
+        <button onClick={() => resolve(1)}>+1</button>
+        <button onClick={() => resolve(-1)}>-1</button>
       </div>
     );
   }
@@ -43,23 +43,39 @@ The use flowponent with React, import from `"flowponent/react"` instead of `"flo
 import React from "react";
 import { render } from "react-dom";
 import flowponent from "flowponent/react";
+```
+
+Otherwise it all works the same way as before. Here's a React example featuring a random selection of very good dogs: [Codesandbox](https://codesandbox.io/s/flowponentreact-in-action-8q16y).
+
+## Async Mode
+
+Async mode is activated by using async generators instead of regular ones. In fact, regular flowponents are actually just a special case of async ones! Here's the first example implemented with async flowponents:
+
+```js
+import { render } from "preact";
+import flowponent from "flowponent";
 
 const App = flowponent(function*() {
   let count = 0;
 
   for (;;) {
-    count += yield step => (
+    const promise += yield resolve => (
       <div>
         <div>current value: {count}</div>
-        <button onClick={() => step(1)}>+1</button>
-        <button onClick={() => step(-1)}>-1</button>
+        <button onClick={() => resolve(1)}>+1</button>
+        <button onClick={() => resolve(-1)}>-1</button>
       </div>
     );
+    count += await promise;
   }
 });
 
 render(<App />, document.getElementById("root"));
 ```
+
+This allows doing things between the time that the view has been rendered and `resolve` has been called.
+
+Check out a bit more involved downloader widget example: [Codesandbox](https://codesandbox.io/s/flowponent-async-mode-in-action-97wk1).
 
 ## See Also
 
