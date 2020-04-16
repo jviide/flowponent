@@ -75,7 +75,7 @@ render(<App />, document.getElementById("root"));
 
 This allows doing things between the time that the view has been rendered and `resolve` has been called.
 
-Check out a bit more involved downloader widget example: [Codesandbox](https://codesandbox.io/s/flowponent-async-mode-in-action-97wk1).
+Check out a bit more involved downloader widget example: [Codesandbox](https://codesandbox.io/s/flowponent-async-mode-in-action-97wk1)
 
 ## See Also
 
