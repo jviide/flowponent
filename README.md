@@ -75,7 +75,7 @@ const App = flowponent(async function*() {
   let count = 0;
 
   for (;;) {
-    const promise += yield resolve => (
+    const promise = yield resolve => (
       <div>
         <div>current value: {count}</div>
         <button onClick={() => resolve(1)}>+1</button>
